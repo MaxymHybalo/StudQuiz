@@ -16,6 +16,17 @@ public class RootController {
         return "OK";
     }
 
+    @GetMapping("/login")
+    @ResponseBody
+    public String getLogin(){
+        return "" +
+                "<form action='/login' method='post'>" +
+                "<input type='text' name='username' />" +
+                "<input type='text' name='password'/>" +
+                "<input type='submit'/></form>";
+    }
+
+
     @PostMapping("/logout")
     @ResponseBody
     public String logout(){

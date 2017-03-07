@@ -22,14 +22,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        System.out.println("[LOADED]" + s);
+        System.out.println("[LOADED]" + s + " [END]");
         User user = repository.findUserByLogin(s);
 
-        if(user ==null){
+        if(user == null){
             System.out.println("[USER NULL]");
             throw  new UsernameNotFoundException("User " +s);
         }else{
-            System.out.println("[LOADED]");
+            System.out.println("[LOADED] " + s);
             String role = "USER";
             if (user.getRole() != null) {
                  role = user.getRole();

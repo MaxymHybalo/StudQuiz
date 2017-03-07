@@ -1,6 +1,7 @@
 package ua.chstu.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,24 +15,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    @Qualifier("customUserDetailsService")
     private CustomUserDetailsService service;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.
-                authorizeRequests()
-                .antMatchers("/question/all").authenticated()
-                .antMatchers("/user/").permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .usernameParameter("login")
-                .passwordParameter("password")
-                .permitAll()
-                .and()
-                .logout().logoutSuccessUrl("/login?logout")
-                .and()
-                .csrf().disable();
+        http
+            .authorizeRequests()
+            .antMatchers("/question/all").authenticated()
+            .antMatchers("/user/").permitAll()
+            .and()
+            .httpBasic()
+            .and()
+            .csrf().disable();
     }
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
