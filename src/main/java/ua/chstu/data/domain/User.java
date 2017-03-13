@@ -11,17 +11,36 @@ public class User extends BaseDocument{
 
     private String password;
 
-    private String role;
+    private String email;
+
+    private String role; //TEACHER, PARENT, STUDENT
+
+    private String first;
+
+    private String last;
+
+    private String middle;
+
+    private String sex;
+
+    private String phone;
 
     @Override
     public String toString() {
         return "User{" +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                ", first='" + first + '\'' +
+                ", last='" + last + '\'' +
+                ", middle='" + middle + '\'' +
+                ", sex='" + sex + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 
-    public User(String login,String password) {
+    public User(String login, String password) {
 
         this.login = login;
         this.password = password;

@@ -11,6 +11,7 @@ import java.util.List;
 @RequestMapping("user")
 public class UserController {
 
+    private final String SIGN_UP_SUCCESS_MSG = "Ви успішно зареєструвалися!";
 
     @Autowired
     private UserService service;
@@ -19,7 +20,7 @@ public class UserController {
     public String register(@RequestBody User user){
         System.out.println(user.toString());
         service.save(user);
-        return "Added successful";
+        return SIGN_UP_SUCCESS_MSG;
     }
 
     @GetMapping("/")
