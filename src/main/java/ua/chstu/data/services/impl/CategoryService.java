@@ -22,6 +22,11 @@ public class CategoryService implements BaseService{
         return ops.find(query, Category.class);
     }
 
+    public Category findById(String id){
+        Query query = Query.query(Criteria.where("_id").is(id));
+        return ops.findById(id, Category.class);
+    }
+
     @Override
     public List<Category> all() {
         return ops.findAll(Category.class);
