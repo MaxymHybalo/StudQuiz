@@ -2,6 +2,8 @@ package ua.chstu.data.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import ua.chstu.data.domain.Category;
 import ua.chstu.data.services.BaseService;
@@ -14,9 +16,15 @@ public class CategoryService implements BaseService{
     @Autowired
     private MongoOperations ops;
 
+    public  List<Category> findCategoryNames(){
+        Query query = new Query();
+        query.fields().include("name").include("_id");
+        return ops.find(query, Category.class);
+    }
+
     @Override
-    public List<CategoryService> all() {
-        return null;
+    public List<Category> all() {
+        return ops.findAll(Category.class);
     }
 
 
