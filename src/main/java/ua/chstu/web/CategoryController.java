@@ -36,4 +36,6 @@ public class CategoryController {
     public Category getById(@PathVariable String id){
         return service.findById(id);
     }
+
+
 }
