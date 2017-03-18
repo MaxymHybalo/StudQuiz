@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import ua.chstu.data.domain.Category;
 import ua.chstu.data.services.BaseService;
@@ -25,6 +26,14 @@ public class CategoryService implements BaseService{
     public Category findById(String id){
         Query query = Query.query(Criteria.where("_id").is(id));
         return ops.findById(id, Category.class);
+    }
+
+    public Category update(Category category){
+        Query query = Query.query(Criteria.where("_id").is(category.getId()));
+        Update update = new Update();
+        update.set("subjects", category.getSubjects());
+        ops.updateFirst(query, update, Category.class);
+        return category;
     }
 
     @Override

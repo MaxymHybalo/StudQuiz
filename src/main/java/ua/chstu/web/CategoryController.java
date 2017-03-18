@@ -37,5 +37,8 @@ public class CategoryController {
         return service.findById(id);
     }
 
-
+    @PostMapping("/update")
+    public Category update(@RequestBody Category category){
+        return service.update(category);
+    }
 }
