@@ -1,12 +1,10 @@
 package ua.chstu.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.chstu.data.domain.Category;
 import ua.chstu.data.domain.Subject;
+import ua.chstu.data.domain.projection.SubjectProjection;
 import ua.chstu.data.services.impl.SubjectService;
 
 import java.util.List;
@@ -27,4 +25,8 @@ public class SubjectController {
         return service.findByIdAndName(id, name);
     }
 
+    @PostMapping("/update")
+    public Category update(@RequestBody SubjectProjection subject){
+        return service.update(subject);
+    }
 }
