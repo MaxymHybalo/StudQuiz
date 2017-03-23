@@ -11,12 +11,5 @@ import java.util.List;
 @RequestMapping("question")
 public class QuestionController {
 
-    @Autowired
-    QuestionService service;
-
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<Question> allQuestions(){
-        return service.all();
-    }
 
 }

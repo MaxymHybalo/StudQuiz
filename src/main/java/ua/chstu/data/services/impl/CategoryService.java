@@ -24,7 +24,6 @@ public class CategoryService implements BaseService{
     }
 
     public Category findById(String id){
-        Query query = Query.query(Criteria.where("_id").is(id));
         return ops.findById(id, Category.class);
     }
 

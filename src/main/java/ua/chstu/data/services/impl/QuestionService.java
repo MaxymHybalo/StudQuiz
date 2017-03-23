@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.chstu.data.domain.Question;
+import ua.chstu.data.domain.Subject;
 import ua.chstu.data.repositories.QuestionRepository;
 import ua.chstu.data.services.BaseService;
 
@@ -14,16 +15,15 @@ import java.util.List;
 public class QuestionService implements BaseService {
 
     @Autowired
-    QuestionRepository repository;
+    private SubjectService service;
 
     @Override
     public List<Question> all() {
-        return repository.findAll();
+        return null;
     }
 
     @Override
     public <T> void save(T t) {
         Question question = (Question) t;
-        repository.save(question);
     }
 }

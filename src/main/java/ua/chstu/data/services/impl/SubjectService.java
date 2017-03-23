@@ -30,8 +30,7 @@ public class SubjectService {
     }
 
     public Category update(SubjectProjection projection){
-        //rebuild
-//        Query query = Query.query(Criteria.where("subjects.name").is("Subject2"));
+
         Query query = Query.query(Criteria
                 .where("_id")
                 .is(projection
