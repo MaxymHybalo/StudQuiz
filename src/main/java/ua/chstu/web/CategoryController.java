@@ -1,5 +1,6 @@
 package ua.chstu.web;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.chstu.data.domain.Category;
@@ -12,6 +13,8 @@ import java.util.List;
 @RequestMapping("/category")
 public class CategoryController {
 
+    private static final Logger log = Logger.getLogger(CategoryController.class);
+
     @Autowired
     private CategoryService service;
 
@@ -22,7 +25,7 @@ public class CategoryController {
 
     @PostMapping("/")
     public Category addCategory(@RequestBody Category category){
-        System.out.println(category.getName());
+        log.info("New category: " + category.getName());
         service.save(category);
         return category;
     }

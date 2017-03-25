@@ -1,5 +1,6 @@
 package ua.chstu.data.services.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -13,6 +14,8 @@ import java.util.List;
 
 @Service
 public class CategoryService implements BaseService{
+
+    private static final Logger log = Logger.getLogger(CategoryService.class);
 
     @Autowired
     private MongoOperations ops;
@@ -45,6 +48,6 @@ public class CategoryService implements BaseService{
     public <T> void save(T t) {
         Category category = (Category) t;
         ops.save(category);
-        System.out.println("Category saved...");
+        log.info(category.getName() + " Saved!");
     }
 }
