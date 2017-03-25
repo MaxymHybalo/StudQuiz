@@ -2,9 +2,11 @@ package ua.chstu.data.domain.projection;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class Params {
 
     private String category;
@@ -14,6 +16,12 @@ public class Params {
     private String categoryName;
 
     private String questionCase;
+
+    public Params(String category, String name, String questionCase) {
+        this.category = category;
+        this.name = name;
+        this.questionCase = questionCase;
+    }
 
     public Params() {
     }

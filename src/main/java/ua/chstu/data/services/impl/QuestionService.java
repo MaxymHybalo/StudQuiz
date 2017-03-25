@@ -11,6 +11,7 @@ import ua.chstu.data.domain.Category;
 import ua.chstu.data.domain.QCase;
 import ua.chstu.data.domain.Question;
 import ua.chstu.data.domain.Subject;
+import ua.chstu.data.domain.projection.Params;
 import ua.chstu.data.domain.projection.QCaseProjection;
 import ua.chstu.data.repositories.QuestionRepository;
 import ua.chstu.data.services.BaseService;
@@ -18,24 +19,15 @@ import ua.chstu.data.services.BaseService;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Transactional
 @Service
-public class QuestionService implements BaseService {
+public class QuestionService {
 
     @Autowired
     private MongoOperations ops;
-
-    @Override
-    public List<Question> all() {
-        return null;
-    }
-
-    @Override
-    public <T> void save(T t) {
-        Question question = (Question) t;
-    }
 
     public Question addToCase(QCaseProjection projection){
         Query query = Query.query(Criteria
@@ -73,5 +65,29 @@ public class QuestionService implements BaseService {
         category.setSubjects(subjects);
         ops.save(category);
         return projection.getData();
+    }
+
+    public Set<Question> findInSubject(Params params){
+        Query query = Query.query(Criteria
+                .where("_id")
+                .is(params.getCategory())
+        .and("subjects.name").is(params.getName()));
+
+        Category category = ops.findOne(query, Category.class);
+        System.out.println(category);
+        Set<Question> questions= category
+                .getSubjects()
+                .stream()
+                .filter(e ->e.getName().equals(params.getName()))
+                .collect(Collectors.toList())
+                .get(0)
+                .getQuestionCases()
+                .stream()
+                .filter(e -> e.getName().equals(params.getQuestionCase()))
+                .collect(Collectors.toList())
+                .get(0)
+                .getQuestions();
+        System.out.println(questions);
+        return questions;
     }
 }
