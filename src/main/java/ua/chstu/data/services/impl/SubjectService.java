@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import ua.chstu.data.domain.Category;
 import ua.chstu.data.domain.Subject;
@@ -30,7 +29,6 @@ public class SubjectService {
     }
 
     public Category update(SubjectProjection projection){
-
         Query query = Query.query(Criteria
                 .where("_id")
                 .is(projection
@@ -40,6 +38,7 @@ public class SubjectService {
                 .is(projection
                         .getParams()
                         .getName()));
+
         Category category = ops.findOne(query, Category.class);
         List<Subject> subjects = category.getSubjects();
         subjects.forEach(e -> {
