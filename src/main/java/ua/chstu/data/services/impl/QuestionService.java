@@ -42,19 +42,7 @@ public class QuestionService {
         Category category = ops.findOne(query, Category.class);
 
         List<Subject> subjects = category.getSubjects();
-        Subject subject = subjects
-                .stream()
-                .filter(e -> e.getName()
-                        .equals(projection
-                                .getParams()
-                                .getName()))
-                .collect(Collectors.toList()).get(0);
-
-        subject.getQuestionCases().forEach(e ->{
-            if(e.getName().equals(projection.getParams().getQuestionCase())){
-                e.getQuestions().add(projection.getData());
-            }
-        });
+        Subject subject = updateCurrentSubject(projection,getCurrentSubject(projection, subjects));
 
         subjects.forEach(e ->{
             if(e.getName().equals(projection.getParams().getName())){
@@ -62,7 +50,7 @@ public class QuestionService {
             }
         });
 
-        category.setSubjects(subjects);
+        category.setSubjects(subjects); //update Subject object in Category
         ops.save(category);
         return projection.getData();
     }
@@ -75,19 +63,46 @@ public class QuestionService {
 
         Category category = ops.findOne(query, Category.class);
         System.out.println(category);
-        Set<Question> questions= category
-                .getSubjects()
-                .stream()
-                .filter(e ->e.getName().equals(params.getName()))
-                .collect(Collectors.toList())
-                .get(0)
-                .getQuestionCases()
-                .stream()
-                .filter(e -> e.getName().equals(params.getQuestionCase()))
-                .collect(Collectors.toList())
-                .get(0)
-                .getQuestions();
+        Set<Question> questions = getQuestionsByCredentials(params, category); //filtered necessary questions
         System.out.println(questions);
         return questions;
+    }
+
+    private Set<Question> getQuestionsByCredentials(Params params, Category category) {
+        return category
+                    .getSubjects()
+                    .stream()
+                    .filter(e ->e.getName().equals(params.getName()))
+                    .collect(Collectors.toList())
+                    .get(0)
+                    .getQuestionCases()
+                    .stream()
+                    .filter(e -> e.getName().equals(params.getQuestionCase()))
+                    .collect(Collectors.toList())
+                    .get(0)
+                    .getQuestions();
+    }
+
+    private Subject updateCurrentSubject(QCaseProjection projection, Subject subject) {
+        subject.getQuestionCases().forEach(e ->{
+            if(e.getName().equals(projection.getParams().getQuestionCase())){
+                if(e.getQuestions() == null){
+                    e.setQuestions(new HashSet<>());
+                }
+                e.getQuestions().add(projection.getData());
+            }
+        });
+
+        return subject;
+    }
+
+    private Subject getCurrentSubject(QCaseProjection projection, List<Subject> subjects) {
+        return subjects
+                .stream()
+                .filter(e -> e.getName()
+                        .equals(projection
+                                .getParams()
+                                .getName()))
+                .collect(Collectors.toList()).get(0);
     }
 }
