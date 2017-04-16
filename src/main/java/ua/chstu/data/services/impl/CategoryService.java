@@ -35,6 +35,7 @@ public class CategoryService implements BaseService{
         Update update = new Update();
         update.set("subjects", category.getSubjects());
         ops.updateFirst(query, update, Category.class);
+        log.info("Updated " + category.toString());
         return category;
     }
 

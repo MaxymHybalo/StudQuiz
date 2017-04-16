@@ -24,7 +24,6 @@ public class SubjectService {
                 .stream()
                 .filter(e -> e.getName().equals(name))
                 .collect(Collectors.toList());
-
         return subjects.get(0);
     }
 

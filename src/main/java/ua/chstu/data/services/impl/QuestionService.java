@@ -1,5 +1,7 @@
 package ua.chstu.data.services.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
 @Transactional
 @Service
 public class QuestionService {
+
+    private static final Logger log = LoggerFactory.getLogger(QuestionService.class);
 
     @Autowired
     private MongoOperations ops;
@@ -52,6 +56,7 @@ public class QuestionService {
 
         category.setSubjects(subjects); //update Subject object in Category
         ops.save(category);
+        log.info("Saved " + category.getName());
         return projection.getData();
     }
 
@@ -62,9 +67,8 @@ public class QuestionService {
         .and("subjects.name").is(params.getName()));
 
         Category category = ops.findOne(query, Category.class);
-        System.out.println(category);
         Set<Question> questions = getQuestionsByCredentials(params, category); //filtered necessary questions
-        System.out.println(questions);
+        log.info(questions.toString());
         return questions;
     }
 
