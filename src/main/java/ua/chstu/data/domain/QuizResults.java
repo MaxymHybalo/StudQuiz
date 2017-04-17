@@ -3,6 +3,7 @@ package ua.chstu.data.domain;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ua.chstu.data.domain.projection.Params;
 
 import java.time.LocalDate;
 
@@ -17,8 +18,9 @@ public class QuizResults {
     private String id;
     private String userId;
     private Short mark;
+    private String gradation;
     private LocalDate data;
-
+    private Params params;
     public QuizResults() {
     }
 }

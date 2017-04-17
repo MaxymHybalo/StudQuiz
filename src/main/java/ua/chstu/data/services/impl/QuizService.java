@@ -35,8 +35,8 @@ public class QuizService implements BaseService{
     }
 
     @Override
-    public List<?> all() {
-        return null;
+    public List<QuizResults> all() {
+        return ops.findAll(QuizResults.class);
     }
 
     @Override

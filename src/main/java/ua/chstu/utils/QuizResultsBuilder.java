@@ -8,6 +8,12 @@ import java.util.*;
 
 public class QuizResultsBuilder {
 
+    private static final String BAD_GRADE = "Понано";
+    private static final String NOT_BAD_GRADE = "Непогано";
+    private static final String NORMAL_GRADE = "Нормально";
+    private static final String GOOD_GRADE = "Гарней результать";
+    private static final String BEST_GRADE = "Відмінно";
+
     private Set<Question> questions;
     private Map<Integer, List<Boolean>> results;
 
@@ -16,13 +22,29 @@ public class QuizResultsBuilder {
         this.results = results;
     }
 
-    public QuizResults build(){
-        return searchResults();
+    public QuizResults build() {
+        QuizResults results = new QuizResults();
+        results = searchResults();
+        results = updateGradation(results);
+        return results;
     }
 
-    /*
-     Carry out this logic to other object
-    */
+    private QuizResults updateGradation(QuizResults quizResults) {
+        short mark = quizResults.getMark();
+        if(mark <= 10){
+            quizResults.setGradation(BAD_GRADE);
+        }else if (mark <= 30){
+            quizResults.setGradation(NOT_BAD_GRADE);
+        }else if(mark <= 60){
+            quizResults.setGradation(NORMAL_GRADE);
+        }else if(mark <= 80){
+            quizResults.setGradation(GOOD_GRADE);
+        }else {
+            quizResults.setGradation(BEST_GRADE);
+        }
+        return quizResults;
+    }
+
     private QuizResults searchResults(){
         QuizResults result = new QuizResults();
         result.setData(LocalDate.now());

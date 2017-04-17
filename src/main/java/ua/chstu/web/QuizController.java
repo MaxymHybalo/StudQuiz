@@ -10,6 +10,8 @@ import ua.chstu.data.domain.projection.Params;
 import ua.chstu.data.domain.projection.QuizResultProjection;
 import ua.chstu.data.services.impl.QuizService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/quiz")
 public class QuizController {
@@ -18,7 +20,11 @@ public class QuizController {
     private QuizService service;
 
     @PostMapping("/results")
-    public QuizResults computeResults(@RequestBody QuizResultProjection projection){
-        return  service.makeResults(projection);
+    public QuizResults computeResults(@RequestBody QuizResultProjection projection) {
+        QuizResults quizResults = service.makeResults(projection);
+        quizResults.setParams(projection.getParams());
+        service.save(quizResults);
+        quizResults.setParams(null); //to optimise response weight
+        return quizResults;
     }
 }
