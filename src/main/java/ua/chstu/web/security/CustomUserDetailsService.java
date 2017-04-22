@@ -1,5 +1,7 @@
 package ua.chstu.web.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,20 +18,17 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService service;
 
-    @Autowired
-    private UserRepository repository;
-
+    private static final Logger log = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        System.out.println("[LOADED]" + s + " [END]");
-        User user = repository.findUserByLogin(s);
-
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.warn("Passed " + username);
+        User user = service.authenticatedByLogin(username);
         if(user == null){
-            System.out.println("[USER NULL]");
-            throw  new UsernameNotFoundException("User " +s);
+            log.warn("Caught null of user");
+            throw  new UsernameNotFoundException("User " +username);
         }else{
-            System.out.println("[LOADED] " + s);
+            log.info("Success passed " + username);
             String role = "USER";
             if (user.getRole() != null) {
                  role = user.getRole();
