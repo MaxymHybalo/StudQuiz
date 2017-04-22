@@ -8,10 +8,10 @@ import java.util.*;
 
 public class QuizResultsBuilder {
 
-    private static final String BAD_GRADE = "Понано";
+    private static final String BAD_GRADE = "Погано";
     private static final String NOT_BAD_GRADE = "Непогано";
     private static final String NORMAL_GRADE = "Нормально";
-    private static final String GOOD_GRADE = "Гарней результать";
+    private static final String GOOD_GRADE = "Гарней результат";
     private static final String BEST_GRADE = "Відмінно";
 
     private Set<Question> questions;

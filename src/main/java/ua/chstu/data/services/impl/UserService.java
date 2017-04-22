@@ -17,7 +17,10 @@ public class UserService implements BaseService{
     private UserRepository repository;
 
     public User byLogin(String login){
-        return repository.findUserByLogin(login);
+        User user = repository.findUserByLogin(login);
+        user.setLogin(null);
+        user.setPassword(null);
+        return user;
     }
 
     @Override
