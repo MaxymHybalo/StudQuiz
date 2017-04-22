@@ -12,6 +12,7 @@ public class QuizResultProjection {
 
     private Map<Integer,List<Boolean>> data;
     private Params params;
+    private String user;
 
     public QuizResultProjection() {
     }
