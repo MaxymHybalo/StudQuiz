@@ -8,7 +8,8 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @ToString
 public class QCase {
 

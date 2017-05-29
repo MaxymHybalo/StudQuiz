@@ -9,10 +9,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Data
+
+@Getter
+@Setter
 @ToString
 @Document(collection = "categories")
 public class Category {
+
     @Id
     private String id;
 

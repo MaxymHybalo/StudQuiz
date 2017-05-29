@@ -1,13 +1,14 @@
 package ua.chstu.data.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
 @ToString
 public class Question{
 

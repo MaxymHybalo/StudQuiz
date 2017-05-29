@@ -10,7 +10,8 @@ import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @ToString
 public class Subject {
 

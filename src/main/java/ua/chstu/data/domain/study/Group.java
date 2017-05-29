@@ -16,7 +16,7 @@ public class Group extends BaseDocument{
     private String name;
     private List<String> studentIds;
     private List<User> students;
-
+    private String creatorId;
     public Group(String name) {
         this.name = name;
     }

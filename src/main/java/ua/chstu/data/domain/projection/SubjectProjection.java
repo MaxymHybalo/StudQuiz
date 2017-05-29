@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import ua.chstu.data.domain.Subject;
 
-@Data
+@Getter
+@Setter
 public class SubjectProjection {
 
     private Subject data;

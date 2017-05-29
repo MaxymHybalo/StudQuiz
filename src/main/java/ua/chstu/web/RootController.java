@@ -49,6 +49,7 @@ public class RootController {
     @GetMapping("/profile")
     @ResponseBody
     public ResponseEntity contextUser(){
+        //change this logic to SessionHolder method
         UserSecurity  authenticated;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserSecurity){
