@@ -1,12 +1,12 @@
 package ua.chstu.data.domain.projection;
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import ua.chstu.data.domain.Subject;
 
-@Getter
-@Setter
+@Data
 public class SubjectProjection {
 
     private Subject data;

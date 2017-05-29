@@ -1,6 +1,7 @@
 package ua.chstu.data.domain;
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,8 +10,7 @@ import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @ToString
 public class Subject {
 

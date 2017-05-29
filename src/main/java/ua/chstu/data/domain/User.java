@@ -1,10 +1,10 @@
 package ua.chstu.data.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.ToString;
 
-@Getter
-@Setter
+@Data
+@ToString
 public class User extends BaseDocument{
 
     private String login;
@@ -13,7 +13,7 @@ public class User extends BaseDocument{
 
     private String email;
 
-    private String role; //TEACHER, PARENT, STUDENT
+    private String role; //TEACHER, PARENT, STUDENT, ADMIN
 
     private String first;
 
@@ -24,21 +24,6 @@ public class User extends BaseDocument{
     private String sex;
 
     private String phone;
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                ", first='" + first + '\'' +
-                ", last='" + last + '\'' +
-                ", middle='" + middle + '\'' +
-                ", sex='" + sex + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
-    }
 
     public User(String login, String password) {
 

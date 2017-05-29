@@ -21,6 +21,7 @@ public class QuizResults {
     private String gradation;
     private LocalDate data;
     private Params params;
+
     public QuizResults() {
     }
 }

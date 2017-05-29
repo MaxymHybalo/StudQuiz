@@ -7,8 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Map;
 
-@Getter
-@Setter
+@Data
 @ToString
 public class Question{
 

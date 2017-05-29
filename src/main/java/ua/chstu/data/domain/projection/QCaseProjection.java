@@ -1,11 +1,11 @@
 package ua.chstu.data.domain.projection;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import ua.chstu.data.domain.Question;
 
-@Getter
-@Setter
+@Data
 public class QCaseProjection {
 
     private Question data;
