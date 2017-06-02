@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.chstu.data.domain.User;
 import ua.chstu.data.domain.study.Group;
 import ua.chstu.data.services.BaseService;
 
@@ -24,6 +25,12 @@ public class GroupService implements BaseService{
     public List<Group> all() {
         //add filling User objects
         return ops.findAll(Group.class);
+    }
+
+    public List<Group> allByUser(User user){
+        String id = user.getId();
+        Query query = Query.query(Criteria.where("creatorId").is(id));
+        return ops.find(query, Group.class);
     }
 
     @Override
