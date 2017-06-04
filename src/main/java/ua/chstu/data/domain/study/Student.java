@@ -19,6 +19,8 @@ public class Student {
     private String password;
     private String id;
 
+    private String groupName;
+
 
     public Student(String first,
                    String last,
@@ -29,5 +31,14 @@ public class Student {
         this.login = login;
         this.password = password;
         this.id = id;
+    }
+
+    public Student(String first,
+                   String last,
+                   String login,
+                   String password,
+                   String id, String groupName){
+        this(first, last, login, password,id);
+        this.groupName = groupName;
     }
 }

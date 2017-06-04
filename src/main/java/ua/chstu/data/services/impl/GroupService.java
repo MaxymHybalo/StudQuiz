@@ -12,6 +12,7 @@ import ua.chstu.data.domain.study.Group;
 import ua.chstu.data.domain.study.Student;
 import ua.chstu.data.services.BaseService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,10 +39,16 @@ public class GroupService implements BaseService{
         return ops.find(query, Group.class);
     }
 
+    public List<Student> findByCreator(String creatorId){
+        Query query = Query.query(Criteria.where("creatorId").is(creatorId));
+        List<Group> groups = ops.find(query, Group.class);
+        return mapStudentsByCreator(groups);
+    }
+
     public List<Student> findByGroupId(String groupId){
         Group group = ops.findById(groupId, Group.class);
         List<String> ids = group.getStudentIds();
-        List<Student> students = ids.stream()
+        return ids.stream()
                 .map(e-> service.find(e))
                 .map(e-> new Student(
                         e.getFirst(),
@@ -51,8 +58,6 @@ public class GroupService implements BaseService{
                         e.getId()
                 ))
                 .collect(Collectors.toList());
-        System.out.println("List: " + students);
-        return students;
     }
 
     @Override
@@ -67,5 +72,23 @@ public class GroupService implements BaseService{
         update.set("studentIds", group.getStudentIds());
         update.set("name", group.getName());
         ops.updateFirst(query,update,Group.class);
+    }
+
+    private List<Student> mapStudentsByCreator(List<Group> groups) {
+        List<Student> students = new ArrayList<>();
+        for (Group g: groups){
+            for(String id: g.getStudentIds()){
+                User user = ops.findById(id, User.class);
+                // map to student
+                students.add(new Student(
+                        user.getFirst(),
+                        user.getLast(),
+                        user.getLogin(),
+                        user.getPassword(),
+                        user.getId(),
+                        g.getName()));
+            }
+        }
+        return students;
     }
 }

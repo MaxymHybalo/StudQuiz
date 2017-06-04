@@ -30,6 +30,11 @@ public class GroupController {
         return service.all();
     }
 
+    @GetMapping("/students")
+    public List<Student> getStudents(){
+        return service.findByCreator(holder.authenticatedUser().getId());
+    }
+
     @GetMapping("/students/{groupId}/")
     public List<Student> getStudentsByGroup(@PathVariable String groupId){
         log.info("Called for students by " + groupId);
