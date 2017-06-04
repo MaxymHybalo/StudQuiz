@@ -43,6 +43,7 @@ public class UserService implements BaseService{
 
         User user = (User) t;
         repository.save(user);
+        System.out.println(user.getId());
 
     }
 }

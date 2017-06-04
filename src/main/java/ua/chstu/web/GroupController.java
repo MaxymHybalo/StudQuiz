@@ -3,6 +3,7 @@ package ua.chstu.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.chstu.data.domain.study.Group;
+import ua.chstu.data.domain.study.Student;
 import ua.chstu.data.services.impl.GroupService;
 import ua.chstu.web.security.SessionHolder;
 
@@ -24,6 +25,11 @@ public class GroupController {
         group.setCreatorId(holder.authenticatedUser().getId());
         service.save(group);
         return service.all();
+    }
+
+    @GetMapping
+    public List<Student> getStudentsByGroup(){
+        return null;
     }
 
     @GetMapping
