@@ -38,6 +38,10 @@ public class UserService implements BaseService{
 
     }
 
+    public User find(String id){
+        return repository.findOne(id);
+    }
+
     @Override
     public <T> void save(T t) {
 

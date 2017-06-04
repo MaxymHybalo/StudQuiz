@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.chstu.data.domain.User;
 import ua.chstu.data.domain.study.Group;
+import ua.chstu.data.domain.study.Student;
 import ua.chstu.data.services.BaseService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -19,6 +21,9 @@ public class GroupService implements BaseService{
 
     @Autowired
     private MongoOperations ops;
+
+    @Autowired
+    private UserService service;
 
 
     @Override
@@ -31,6 +36,23 @@ public class GroupService implements BaseService{
         String id = user.getId();
         Query query = Query.query(Criteria.where("creatorId").is(id));
         return ops.find(query, Group.class);
+    }
+
+    public List<Student> findByGroupId(String groupId){
+        Group group = ops.findById(groupId, Group.class);
+        List<String> ids = group.getStudentIds();
+        List<Student> students = ids.stream()
+                .map(e-> service.find(e))
+                .map(e-> new Student(
+                        e.getFirst(),
+                        e.getLast(),
+                        e.getLogin(),
+                        e.getPassword(),
+                        e.getId()
+                ))
+                .collect(Collectors.toList());
+        System.out.println("List: " + students);
+        return students;
     }
 
     @Override

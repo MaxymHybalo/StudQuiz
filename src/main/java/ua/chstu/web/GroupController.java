@@ -1,5 +1,6 @@
 package ua.chstu.web;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.chstu.data.domain.study.Group;
@@ -9,10 +10,12 @@ import ua.chstu.web.security.SessionHolder;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/group")
 public class GroupController {
 
+    private final static Logger log = Logger.getLogger(GroupController.class);
     @Autowired
     private SessionHolder holder;
 
@@ -21,15 +24,16 @@ public class GroupController {
 
     @PostMapping
     public List<Group> newGroup(@RequestBody Group group){
-        System.out.println(group);
+        log.info(group);
         group.setCreatorId(holder.authenticatedUser().getId());
         service.save(group);
         return service.all();
     }
 
-    @GetMapping
-    public List<Student> getStudentsByGroup(){
-        return null;
+    @GetMapping("/students/{groupId}/")
+    public List<Student> getStudentsByGroup(@PathVariable String groupId){
+        log.info("Called for students by " + groupId);
+        return service.findByGroupId(groupId);
     }
 
     @GetMapping
