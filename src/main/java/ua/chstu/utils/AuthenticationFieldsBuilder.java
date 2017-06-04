@@ -1,7 +1,10 @@
 package ua.chstu.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
+@Component
 public class AuthenticationFieldsBuilder {
 
 

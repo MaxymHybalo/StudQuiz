@@ -7,6 +7,7 @@ import ua.chstu.data.domain.study.Group;
 import ua.chstu.data.domain.study.StudentProjection;
 import ua.chstu.data.services.impl.GroupService;
 import ua.chstu.data.services.impl.UserService;
+import ua.chstu.utils.AuthenticationFieldsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,9 @@ public class UserController {
     @Autowired
     private GroupService groupService;
 
+    @Autowired
+    private AuthenticationFieldsBuilder fieldBuilder;
+
     @PostMapping("/new")
     public String register(@RequestBody User user){
         System.out.println(user.toString());
@@ -36,8 +40,8 @@ public class UserController {
         System.out.println(projection.getGroup().getId());
         User user = projection.getUser();
         user.setRole("STUDENT");
-        user.setLogin(user.getLast());
-        user.setPassword(user.getFirst() +(int) Math.floor(Math.random() * 100));
+        user.setLogin(fieldBuilder.buildField());
+        user.setPassword(fieldBuilder.buildField());
         System.out.println(user);
         service.save(user);
         groupService.update(updateGroup(projection));
