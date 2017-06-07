@@ -1,6 +1,7 @@
 package ua.chstu.data.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ua.chstu.data.domain.projection.Params;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
  */
 @Data
 @Document(collection = "results")
+@EqualsAndHashCode
 public class QuizResults {
 
     @Id

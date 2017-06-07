@@ -10,6 +10,7 @@ import ua.chstu.data.domain.projection.QuizResultProjection;
 import ua.chstu.data.services.impl.QuizService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/quiz")
@@ -32,5 +33,10 @@ public class QuizController {
         }
         quizResults.setParams(null); //to optimise response weight
         return quizResults;
+    }
+
+    @GetMapping("/results/{id}/")
+    public Map<Params,QuizResults> results(@PathVariable String id){
+        return service.findByContestant(id);
     }
 }

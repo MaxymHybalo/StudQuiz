@@ -2,6 +2,7 @@ package ua.chstu.utils;
 
 import ua.chstu.data.domain.Question;
 import ua.chstu.data.domain.QuizResults;
+import ua.chstu.data.domain.projection.Params;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -11,16 +12,40 @@ public class QuizResultsBuilder {
     private static final String BAD_GRADE = "Погано";
     private static final String NOT_BAD_GRADE = "Непогано";
     private static final String NORMAL_GRADE = "Нормально";
-    private static final String GOOD_GRADE = "Гарней результат";
+    private static final String GOOD_GRADE = "Гарний результат";
     private static final String BEST_GRADE = "Відмінно";
 
     private Set<Question> questions;
     private Map<Integer, List<Boolean>> results;
 
+    public static Map<Params,QuizResults> filterRecentResults(List<QuizResults> resource){
+        Set<Params> quiz = new HashSet<>();
+        for(QuizResults q: resource){
+            quiz.add(q.getParams());
+        }
+        Map<Params, QuizResults> map = new HashMap<>();
+        for (Params p: quiz){
+            for (QuizResults q: resource){
+                if (map.get(p) != null){
+                    if (q.getMark()>= map.get(p).getMark()){
+                        map.put(p,q);
+                    }
+                }else{
+                    map.put(p,q);
+                }
+
+            }
+
+        }
+        return map;
+    }
+
     public QuizResultsBuilder(Set<Question> questions, Map<Integer, List<Boolean>> results) {
         this.questions = questions;
         this.results = results;
     }
+
+    public QuizResultsBuilder(){}
 
     public QuizResults build() {
         QuizResults results = new QuizResults();

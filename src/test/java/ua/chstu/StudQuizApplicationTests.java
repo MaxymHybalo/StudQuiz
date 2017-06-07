@@ -28,4 +28,5 @@ public class StudQuizApplicationTests {
 		System.out.println(field);
 		Assert.assertTrue(field.length() > 4);
 	}
+
 }
