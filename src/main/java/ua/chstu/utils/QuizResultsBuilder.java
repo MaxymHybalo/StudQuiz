@@ -26,14 +26,15 @@ public class QuizResultsBuilder {
         Map<Params, QuizResults> map = new HashMap<>();
         for (Params p: quiz){
             for (QuizResults q: resource){
-                if (map.get(p) != null){
-                    if (q.getMark()>= map.get(p).getMark()){
-                        map.put(p,q);
+                if (q.getParams().equals(p)) {
+                    if (map.get(p) != null) {
+                        if (q.getMark() >= map.get(p).getMark()) {
+                            map.put(p, q);
+                        }
+                    } else {
+                        map.put(p, q);
                     }
-                }else{
-                    map.put(p,q);
                 }
-
             }
 
         }

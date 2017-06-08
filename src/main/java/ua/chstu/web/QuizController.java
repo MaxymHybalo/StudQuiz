@@ -9,6 +9,7 @@ import ua.chstu.data.domain.projection.Params;
 import ua.chstu.data.domain.projection.QuizResultProjection;
 import ua.chstu.data.services.impl.QuizService;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class QuizController {
     }
 
     @GetMapping("/results/{id}/")
-    public Map<Params,QuizResults> results(@PathVariable String id){
+    public Collection<QuizResults> results(@PathVariable String id){
         return service.findByContestant(id);
     }
 }

@@ -15,9 +15,7 @@ import ua.chstu.data.services.BaseService;
 import ua.chstu.utils.QuizResultsBuilder;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class QuizService implements BaseService{
@@ -37,9 +35,10 @@ public class QuizService implements BaseService{
         return builder.build();
     }
 
-    public Map<Params,QuizResults> findByContestant(String id){
+    public Collection<QuizResults> findByContestant(String id){
         Query query = Query.query(Criteria.where("userId").is(id));
-        return QuizResultsBuilder.filterRecentResults(ops.find(query, QuizResults.class));
+        Map<Params, QuizResults> map = QuizResultsBuilder.filterRecentResults(ops.find(query, QuizResults.class));
+        return map.values();
     }
     @Override
     public List<QuizResults> all() {
