@@ -38,7 +38,9 @@ public class QuizService implements BaseService{
     public Collection<QuizResults> findByContestant(String id){
         Query query = Query.query(Criteria.where("userId").is(id));
         Map<Params, QuizResults> map = QuizResultsBuilder.filterRecentResults(ops.find(query, QuizResults.class));
-        return map.values();
+        Collection<QuizResults> list = map.values();
+        list.forEach(e -> e.setDateCaption(e.getData().toString()));
+        return list;
     }
     @Override
     public List<QuizResults> all() {

@@ -22,6 +22,7 @@ public class QuizResults {
     private Short mark;
     private String gradation;
     private LocalDate data;
+    private String dateCaption;
     private Params params;
 
     public QuizResults() {
